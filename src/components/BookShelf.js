@@ -6,23 +6,29 @@ export default class Shelf extends Component {
        currentlyReading: "Currently Reading", 
        wantToRead: "Want to Read", 
        read: "Read"
-}
-//   filteredBooks = bookArray.filter(book => book.state.shelf === this.props.shelfName)
+   }
+
+    constructor(props){
+	super(props);
+    }
+
     render(){
-       return(
+	const filteredBooks = this.props.books.filter(book => book.shelfname == this.props.shelfname)
+	return(
            <div>
-           {Object.values(this.shelves).map((shelf, index) => 
-	                <div className="bookshelf" shelfName={Object.keys(this.shelves)[index]}>
-                          <h2 className="bookshelf-title">{shelf}</h2>
-                          <div className="bookshelf-books">                                                                                        
-                            <ol className="books-grid">
-                              <Book/>//write a function to reduce incoming array of book components to ones with the correct state
-                            </ol>                                                                                                                   
-                          </div>
-	                </div> 	      
-                       )
-           }
+	     <div className="bookshelf">
+               <h2 className="bookshelf-title">{this.props.shelfname}</h2>
+               <div className="bookshelf-books">                                                                                        
+                 <ol className="books-grid">
+                   {filteredBooks.length ? filteredBooks.map(
+		       book => 
+			       <Book bookinfo={book} key={book.id} shelf={book.shelfname}/>
+                       ) : <h3>No books here! Click the plus to search for a book and add it!</h3>
+		   }
+                 </ol>                                                                                                                   
+               </div>
+	     </div> 	      
            </div>
-	)
+        )
     }
 }
