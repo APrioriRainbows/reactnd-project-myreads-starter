@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import * as BooksAPI from '../../BooksAPI'
 import Search from '../Search'
+import Book from '../Book'
 //import './App.css'
 import {
     BrowserRouter as Router,
@@ -9,20 +10,31 @@ import {
 } from 'react-router-dom'
 
 export default class SearchPage extends Component {
+    state = {
+        resultList: []
+    }
+    getBooks = (resultList) => {
+        this.setState({resultList: resultList})
+    }
     render() {
+        
         return(
             <div className="search-books">
-                <div className="search-books-bar">
-	      <Link className="close-search" to="/">Close</Link>
-                    <div className="search-books-input-wrapper">
-                        <Search/>
+              <div className="search-books-bar">
+	        <Link className="close-search" to="/">Close</Link>
+                <div className="search-books-input-wrapper">
+                  <Search returnResults={this.getBooks}/>
+	        </div>
+	      </div>
+	      <div className="search-books-results">
+                { this.state.resultList && (
+	            <ol className="books-grid">
+                    { this.state.resultList.map(book => <Book bookinfo={book}/> )
+                    }
+	            </ol>
+                ) }
 	      </div>
 	    </div>
-	    <div className="search-books-results">
-	      <ol className="books-grid">
-	      </ol>
-	    </div>
-	  </div>
         )
     }
 }

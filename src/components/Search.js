@@ -9,14 +9,22 @@ import {
 
 export default class Search extends Component {
     state = {
-        query:''
+        query:'',
+	resultList: []
     }
     updateQuery = (query) => {
         this.setState({query: query.trim()})
-    }  
+	this.returnBooks(query)
+    }
+    returnBooks = (query) => {
+	BooksAPI.search(query).then((books) => {
+            this.setState({resultList:books});
+            this.props.returnResults(books)
+        })
+    }
     render(){
 	return(
-	 <div className="search-books-bar">                                                                                                         
+	 <div className="search-books-bar">
               <Link className="close-search" to="/">Close</Link>                                                                    
               <div className="search-books-input-wrapper">
                 <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.updateQuery(event.target
