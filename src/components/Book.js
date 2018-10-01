@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import * as BooksAPI from '../BooksAPI'
-
+import BookShelf from './BookShelf.js'
 export default class Book extends Component {
     constructor(props){
         super(props);
+    this.updateShelf = this.updateShelf.bind(this)
     }
     state = {
         shelf: "none"
     }
-//    books = BooksAPI.getAll()
     updateShelf = (event) => {
-	BooksAPI.update(this.props.bookinfo.id, event.target.value)
-	this.setState({shelf: event.target.value})
+	//this.props.updatesavedbooks(this.props.bookinfo)
+        console.log(this.props.bookinfo.id)
+	BooksAPI.update(this.props.bookinfo, event.target.value)
+	    .then(this.setState({shelf: event.target.value}))
     }
     render(){
 	const book = this.props.bookinfo
@@ -20,7 +22,7 @@ export default class Book extends Component {
 	book_image = `url(${book_image})`
 	return(
             <li>
-              <div className="book" shelf={this.state.shelf}>
+              <div className="book" shelf={this.state.shelf} bookinfo={book} key={book.id} shelf={book.shelfname}>
                 <div className="book-top">
                   <div className="book-cover" style={{width: 128, height: 193, backgroundImage: book_image}}></div>
                   <div className="book-shelf-changer">

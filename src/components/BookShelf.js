@@ -1,34 +1,37 @@
 import React, {Component} from 'react'
 import Book from './Book.js'
-
+import * as BooksAPI from '../BooksAPI'
 export default class Shelf extends Component {
-   shelves = {
-       currentlyReading: "Currently Reading", 
-       wantToRead: "Want to Read", 
-       read: "Read"
-   }
-
     constructor(props){
 	super(props);
+        BooksAPI.getAll()
+            .then(savedBooks => {
+                this.setState({savedBooks:savedBooks})
+            })
     }
-
+    state = {
+        savedBooks:[]
+    }
     render(){
-	const filteredBooks = this.props.books.filter(book => book.shelfname == this.props.shelfname)
+        const shelfName = this.props.keyValue[1]
+        const shelfSlug = this.props.keyValue[0]
+	const filteredBooks = this.state.savedBooks && this.state.savedBooks.filter(book => book.shelf == shelfSlug);
+        console.log(filteredBooks,this.props);
 	return(
-           <div>
-	     <div className="bookshelf">
-               <h2 className="bookshelf-title">{this.props.shelfname}</h2>
-               <div className="bookshelf-books">                                                                                        
-                 <ol className="books-grid">
-                   {filteredBooks.length ? filteredBooks.map(
-		       book => 
-			       <Book bookinfo={book} key={book.id} shelf={book.shelfname}/>
-                       ) : <h3>No books here! Click the plus to search for a book and add it!</h3>
-		   }
-                 </ol>                                                                                                                   
-               </div>
-	     </div> 	      
-           </div>
+	    <div>
+	      <div className="bookshelf">
+		<h2 className="bookshelf-title">{shelfName}</h2>
+		<div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {filteredBooks && filteredBooks.length ? filteredBooks.map(
+		        book => 
+			    <Book bookinfo={book} shelf={book.shelf} {...this.props}/>
+                    ) : <h3>No books here! Click the plus to search for a book and add it!</h3>
+		    }
+                  </ol>
+                </div>
+	      </div>
+            </div>
         )
     }
 }

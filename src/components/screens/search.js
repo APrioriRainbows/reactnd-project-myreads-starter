@@ -16,8 +16,16 @@ export default class SearchPage extends Component {
     getBooks = (resultList) => {
         this.setState({resultList: resultList})
     }
+    updateSavedBooks(savedBooks) {
+	console.log(savedBooks)
+        BooksAPI.getAll()
+            .then(savedBooks => {
+                this.setState({savedBooks:savedBooks})
+            })
+    }
     render() {
-        
+	let resultList = this.state.resultList || []
+	if (resultList.error) { resultList = [] }
         return(
             <div className="search-books">
               <div className="search-books-bar">
@@ -27,12 +35,9 @@ export default class SearchPage extends Component {
 	        </div>
 	      </div>
 	      <div className="search-books-results">
-                { this.state.resultList && (
 	            <ol className="books-grid">
-                    { this.state.resultList.map(book => <Book bookinfo={book}/> )
-                    }
+                    { resultList.map(book => <Book bookinfo={book} updatesavedbooks={(b) =>this.updateSavedBooks(b)}/> ) }
 	            </ol>
-                ) }
 	      </div>
 	    </div>
         )

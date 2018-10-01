@@ -6,24 +6,15 @@ import Main from './components/screens/main.js'
 import SearchPage from './components/screens/search.js'
 
 export default class BooksApp extends Component {
-    state = {
-	books: []
-    }
-    componentDidMount(){
-    BooksAPI.getAll().then(books => {
-	this.setState({books:books})
-    })
-    }
     render(){
-	console.log('this',this)
-    return(
-        <Router>
-          <div>
-            <Route exact path="/" render={ (props) => <Main books={ this.state.books } /> }/>
-            <Route exact path="/search" component={SearchPage}/>
-          </div>
-       </Router>
-    )
+	return(
+	    <Router>
+	      <div>
+		<Route exact path="/" component={Main}/>
+		<Route exact path="/search" component={SearchPage}/>
+	      </div>
+	    </Router>
+        )
     }
 }
 
