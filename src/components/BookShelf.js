@@ -4,29 +4,22 @@ import * as BooksAPI from '../BooksAPI'
 export default class Shelf extends Component {
     constructor(props){
 	super(props);
-        BooksAPI.getAll()
-            .then(savedBooks => {
-                this.setState({savedBooks:savedBooks})
-            })
     }
     state = {
         savedBooks:[]
     }
     render(){
-        const shelfName = this.props.keyValue[1]
-        const shelfSlug = this.props.keyValue[0]
-	const filteredBooks = this.state.savedBooks && this.state.savedBooks.filter(book => book.shelf == shelfSlug);
+	const shelf = this.props.shelf_obj
 	return(
 	    <div>
 	      <div className="bookshelf">
-		<h2 className="bookshelf-title">{shelfName}</h2>
+		<h2 className="bookshelf-title">{shelf.name}</h2>
 		<div className="bookshelf-books">
                   <ol className="books-grid">
-                    {filteredBooks && filteredBooks.length ? filteredBooks.map(
-		        book =>
-			    <Book bookinfo={book} shelf={book.shelf} key={book.id}/>
-                    ) : <h3>No books here! Click the plus to search for a book and add it!</h3>
-		    }
+                    { shelf.books.map( book =>
+			    <Book bookinfo={book} shelf={book.shelf} key={book.id} refreshData={this.props.refreshData}/>
+                    ) }
+		    { (shelf.books.length == 0) && <h3>No books here! Click the plus to search for a book and add it!</h3> }
                   </ol>
                 </div>
 	      </div>
