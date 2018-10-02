@@ -26,12 +26,12 @@ export default class Book extends Component {
                 <div className="book-top">
                   <div className="book-cover" style={style}></div>
                   <div className="book-shelf-changer">
-                    <select onChange={this.updateShelf}>
+                    <select value={book.shelf || "none"} onChange={this.updateShelf}>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="undefined">None</option>
+                      <option value="none">None</option>
                     </select>
                   </div>
                 </div>
