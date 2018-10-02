@@ -4,14 +4,11 @@ import BookShelf from './BookShelf.js'
 export default class Book extends Component {
     constructor(props){
         super(props);
-    this.updateShelf = this.updateShelf.bind(this)
     }
     state = {
         shelf: "none"
     }
     updateShelf = (event) => {
-	//this.props.updatesavedbooks(this.props.bookinfo)
-        console.log(this.props.bookinfo.id)
 	BooksAPI.update(this.props.bookinfo, event.target.value)
 	    .then(this.setState({shelf: event.target.value}))
     }

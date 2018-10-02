@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Book from './Book.js'
 import * as BooksAPI from '../BooksAPI.js'
 import {
   BrowserRouter as Router,

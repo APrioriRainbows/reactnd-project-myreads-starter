@@ -36,7 +36,7 @@ export default class SearchPage extends Component {
 	      </div>
 	      <div className="search-books-results">
 	            <ol className="books-grid">
-                    { resultList.map(book => <Book bookinfo={book} updatesavedbooks={(b) =>this.updateSavedBooks(b)}/> ) }
+                    { resultList.map(book => <Book bookinfo={book} /> ) }
 	            </ol>
 	      </div>
 	    </div>

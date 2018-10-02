@@ -16,7 +16,6 @@ export default class Shelf extends Component {
         const shelfName = this.props.keyValue[1]
         const shelfSlug = this.props.keyValue[0]
 	const filteredBooks = this.state.savedBooks && this.state.savedBooks.filter(book => book.shelf == shelfSlug);
-        console.log(filteredBooks,this.props);
 	return(
 	    <div>
 	      <div className="bookshelf">
@@ -24,8 +23,8 @@ export default class Shelf extends Component {
 		<div className="bookshelf-books">
                   <ol className="books-grid">
                     {filteredBooks && filteredBooks.length ? filteredBooks.map(
-		        book => 
-			    <Book bookinfo={book} shelf={book.shelf} {...this.props}/>
+		        book =>
+			    <Book bookinfo={book} shelf={book.shelf} key={book.id}/>
                     ) : <h3>No books here! Click the plus to search for a book and add it!</h3>
 		    }
                   </ol>
