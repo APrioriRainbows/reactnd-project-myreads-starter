@@ -10,22 +10,30 @@ import {
 } from 'react-router-dom'
 
 export default class SearchPage extends Component {
+    constructor(props){
+        super(props)
+        this.refreshData()
+
+    }
     state = {
-        resultList: []
+        queryResults: [],
+        savedBooks: []
     }
-    getBooks = (resultList) => {
-        this.setState({resultList: resultList})
+    getBooks = (queryResults) => {
+        this.setState({queryResults: queryResults})
     }
-    updateSavedBooks(savedBooks) {
-	console.log(savedBooks)
+    refreshData = () => {
         BooksAPI.getAll()
             .then(savedBooks => {
                 this.setState({savedBooks:savedBooks})
             })
     }
     render() {
-	let resultList = this.state.resultList || []
-	if (resultList.error) { resultList = [] }
+        let queryResults = this.state.queryResults
+        let savedBooks = this.state.savedBooks
+        let savedBookIds = this.state.savedBooks.map( book => book.id)
+        let List = queryResults.filter( book => savedBookIds.indexOf(book.id) === -1)
+	if (queryResults.error) { queryResults = [] }
         return(
             <div className="search-books">
               <div className="search-books-bar">
@@ -35,9 +43,9 @@ export default class SearchPage extends Component {
 	        </div>
 	      </div>
 	      <div className="search-books-results">
-	            <ol className="books-grid">
-                    { resultList.map(book => <Book bookinfo={book} /> ) }
-	            </ol>
+	        <ol className="books-grid">
+		  { List.map(book => <Book bookinfo={book} /> ) }
+	        </ol>
 	      </div>
 	    </div>
         )
