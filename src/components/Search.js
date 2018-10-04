@@ -5,8 +5,14 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import debounce from 'lodash.debounce'
 
 export default class Search extends Component {
+    constructor(props){
+        super(props)
+        this.returnBooks = debounce(this.returnBooks, 1000)
+    }
+
     state = {
         query:'',
 	resultList: []
