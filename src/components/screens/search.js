@@ -32,8 +32,8 @@ export default class SearchPage extends Component {
         let queryResults = this.state.queryResults
         let savedBooks = this.state.savedBooks
         let savedBookIds = this.state.savedBooks.map( book => book.id)
-        let List = queryResults.filter( book => savedBookIds.indexOf(book.id) === -1)
 	if (queryResults.error) { queryResults = [] }
+        let List = queryResults.filter( book => savedBookIds.indexOf(book.id) === -1)
         return(
             <div className="search-books">
               <div className="search-books-bar">
@@ -45,6 +45,7 @@ export default class SearchPage extends Component {
 	      <div className="search-books-results">
 	        <ol className="books-grid">
 		  { List.map(book => <Book bookinfo={book} /> ) }
+	          { List.length === 0 && "No books matching query" }
 	        </ol>
 	      </div>
 	    </div>
