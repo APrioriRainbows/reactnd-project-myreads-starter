@@ -13,7 +13,7 @@ export default class SearchPage extends Component {
     constructor(props){
         super(props)
         this.refreshData()
-
+        
     }
     state = {
         queryResults: [],
@@ -43,11 +43,11 @@ export default class SearchPage extends Component {
 	        </div>
 	      </div>
 	      <div className="search-books-results">
-	        <ol className="books-grid">
-		  { List.map(book => <Book bookinfo={book} /> ) }
-	          { List.length === 0 && "No books matching query" }
-	        </ol>
-	      </div>
+	          <ol className="books-grid">
+		    { List.map(book => <Book bookinfo={book} /> ) }
+	            { List.length === 0 && "No books matching query" }
+	          </ol>
+	        </div>
 	    </div>
         )
     }

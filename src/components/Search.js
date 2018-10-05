@@ -14,16 +14,15 @@ export default class Search extends Component {
     }
 
     state = {
-        query:'',
-	resultList: []
+        query:''
     }
     updateQuery = (query) => {
         this.setState({query: query})
 	this.returnBooks(query)
     }
     returnBooks = (query) => {
+	if (query.trim() == ''){ this.props.returnResults([]); return; }
 	BooksAPI.search(query.trim()).then((books) => {
-            this.setState({resultList:books});
             this.props.returnResults(books)
         })
     }
