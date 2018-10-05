@@ -3,23 +3,18 @@ import * as BooksAPI from '../../BooksAPI'
 import Search from '../Search'
 import Book from '../Book'
 //import './App.css'
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default class SearchPage extends Component {
     constructor(props){
         super(props)
         this.refreshData()
-        
     }
     state = {
         queryResults: [],
         savedBooks: []
     }
-    getBooks = (queryResults) => {
+    displayBooks = (queryResults) => {
         this.setState({queryResults: queryResults})
     }
     refreshData = () => {
@@ -30,7 +25,6 @@ export default class SearchPage extends Component {
     }
     render() {
         let queryResults = this.state.queryResults
-        let savedBooks = this.state.savedBooks
         let savedBookIds = this.state.savedBooks.map( book => book.id)
 	if (queryResults.error) { queryResults = [] }
         let List = queryResults.filter( book => savedBookIds.indexOf(book.id) === -1)

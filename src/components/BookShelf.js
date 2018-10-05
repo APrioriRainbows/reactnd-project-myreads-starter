@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
 import Book from './Book.js'
-import * as BooksAPI from '../BooksAPI'
+
 export default class Shelf extends Component {
-    constructor(props){
-	super(props);
-    }
     state = {
         savedBooks:[]
     }
@@ -19,7 +16,7 @@ export default class Shelf extends Component {
                     { shelf.books.map( book =>
 			    <Book bookinfo={book} shelf={book.shelf} key={book.id} refreshData={this.props.refreshData}/>
                     ) }
-		    { (shelf.books.length == 0) && <h3>No books here! Click the plus to search for a book and add it!</h3> }
+		    { (shelf.books.length === 0) && <h3>No books here! Click the plus to search for a book and add it!</h3> }
                   </ol>
                 </div>
 	      </div>

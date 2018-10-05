@@ -1,16 +1,12 @@
 import React, {Component} from 'react'
 import * as BooksAPI from '../BooksAPI.js'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 
 export default class Search extends Component {
     constructor(props){
         super(props)
-        this.returnBooks = debounce(this.returnBooks, 1000)
+        this.getQueryBooks = debounce(this.getQueryBooks, 1000)
     }
 
     state = {
@@ -18,10 +14,10 @@ export default class Search extends Component {
     }
     updateQuery = (query) => {
         this.setState({query: query})
-	this.returnBooks(query)
+	this.getQueryBooks(query)
     }
-    returnBooks = (query) => {
-	if (query.trim() == ''){ this.props.returnResults([]); return; }
+    getQueryBooks = (query) => { 
+	if (query.trim() === ''){ this.props.returnResult([]); return; }
 	BooksAPI.search(query.trim()).then((books) => {
             this.props.returnResults(books)
         })

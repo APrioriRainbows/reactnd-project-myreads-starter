@@ -22,7 +22,7 @@ export default class Main extends Component {
 	BooksAPI.getAll()
 	    .then(savedBooks => {
 		this.state.shelves.forEach( shelf => {
-		    shelf.books = savedBooks.filter(book => book.shelf == shelf.slug)
+		    shelf.books = savedBooks.filter(book => book.shelf === shelf.slug)
 		})
 		this.setState({shelves: this.state.shelves}) // setState is necessary to trigger re-render
 	    })
