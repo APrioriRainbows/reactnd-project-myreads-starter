@@ -17,7 +17,7 @@ export default class Search extends Component {
 	this.getQueryBooks(query)
     }
     getQueryBooks = (query) => { 
-	if (query.trim() === ''){ this.props.returnResult([]); return; }
+	if (query.trim() === ''){ this.props.returnResults([]); return; }
 	BooksAPI.search(query.trim()).then((books) => {
             this.props.returnResults(books)
         })
