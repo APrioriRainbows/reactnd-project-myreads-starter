@@ -1,17 +1,11 @@
 import React, {Component} from 'react'
 import * as BooksAPI from '../BooksAPI'
-import BookShelf from './BookShelf.js'
 
 export default class Book extends Component {
-    constructor(props){
-        super(props);
-    }
     updateShelf = (event) => {
 	const value = event.target.value;
 	BooksAPI.update(this.props.bookinfo, value).then(()=> {
-	    // # TODO: Search needs a this.props.refreshData after the search results are filtered to
-	    // remove books on shelves
-	    this.props.refreshData && this.props.refreshData()
+	    this.props.refreshData()
 	})
     }
     render(){
