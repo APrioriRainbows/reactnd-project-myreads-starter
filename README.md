@@ -6,7 +6,7 @@ To run the app you'll need npm package manager. You can install that [here](http
 Once you have npm follow these steps to view the app...
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
-
+* go to http://localhost:3000/ to view the project
 
 ## Viewing Your Books
 * The main page shows three shelves: Currently Reading, Want to Read, and Read. You can click the green arrow off each book to move it between shelves
